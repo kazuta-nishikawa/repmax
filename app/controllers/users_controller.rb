@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @records = current_user.records.order(id: :desc).page(params[:page])
+    @records = @user.records.order(id: :desc).page(params[:page])
     
     if @user.birthday
       @age = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
