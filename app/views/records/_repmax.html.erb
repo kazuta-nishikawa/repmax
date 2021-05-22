@@ -1,0 +1,41 @@
+<% if records.any? %>
+    <% records.each do |record| %>
+    <hr>
+        <div class="row text-light">
+          <div class="col-sm-4">
+            <h3><i class="fas fa-calendar-day"></i><%= record.date %></h3>
+          </div>
+          <div  class="col-sm-8">
+            <% if record.bodyweight %>
+                <p>Bodyweight: <%= record.bodyweight %> kg</p>
+            <% end %>
+          </div>
+        </div>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th scope="col">Workout</th>
+              <th scope="col">Lift</th>
+              <th scope="col">Rep</th>
+              <th scope="col">1RepMax</th>
+              <th scope="col">Ratio</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= record.workout %></td>
+              <td><%= record.weight %></td>
+              <td><%= record.rep %></td>
+              <td><%= calc_repmax(record.weight, record.rep) %></td>
+                <% if record.bodyweight %>
+                  <td><%= calc_ratio(record.bodyweight) %></td>
+                <% else %>
+                  <td></td>
+                <% end %>
+              <td><%= link_to "Edit", edit_record_path(record.id), class: 'btn btn-success btn-sm' %>    <%= link_to "Delete", record, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %></td>
+            </tr>
+          </tbody>
+        </table>
+    <% end %>
+<% end %>

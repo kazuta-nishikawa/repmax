@@ -1,0 +1,39 @@
+<% if logged_in? %>
+  <%= current_user.name %>
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1 class="text-light">Welcome to the RepMax</h1>
+      <h2 class="text-light">最大筋力を計算し、記録、表にします。<br>また、ＣSVファイル出力も可能です。<br>日々のトレーニングにお役立てください。</h2>
+      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div>
+  </div>
+    <h3 class="text-center text-light">one rep mac calculator</h3>
+    
+  <div class="row">
+    <div class="col-sm-6 offset-3 text-center">
+      
+        <%= form_with(url: root_url,scope: :calc,local: true) do |f| %>
+          <div class="form-group text-light row">
+            <%= f.label :weight, '使用重量(kg)' %>
+            <%= f.number_field :weight, class: 'form-control' %>
+          </div>
+    
+          <div class="form-group text-light row">
+            <%= f.label :rep, '回数' %>
+            <%= f.number_field :rep, class: 'form-control' %>
+          </div>
+    
+          <%= f.submit '計算する', class: 'btn btn-primary btn-lg' %>
+        <% end %>
+        
+    <% if request.post? %>
+      <div class="text-center text-light bg-dark">
+        <h3>Result.</h3>
+          <h4>your one rep max is <%= @repmax %> kg</h4>
+          </div>
+    <% end %>
+    </div>
+    
+  </div>
+<% end %>

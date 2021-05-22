@@ -1,0 +1,59 @@
+<div class="text-center text-light">
+  <h1>Setting</h1>
+  <h2>ユーザー情報更新ページ</h2>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 text-light">
+
+    <%= form_with(model: @user, local: true) do |f| %>
+    <%= render 'layouts/error_messages', model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :name, 'ユーザーネーム' %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      
+      
+      <!--生年月日のフォームで参照にしたURL-->
+      <!--  https://railsguides.jp/form_helpers.html  -->
+      <!-- このようなハッシュを得られる
+      {'person' => {'birth_date(1i)' => '2008', 'birth_date(2i)' => '11', 'birth_date(3i)' => '22'}}
+      -->
+      <div class="form-group">
+        <%= f.label :birthday, '生年月日' %>
+        <div class="row col-12">
+          <%= f.date_select :birthday,{use_month_numbers: true,start_year: Date.today.year-100, end_year: Date.today.year}, {class: 'form-control col-3'} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :height, '身長' %>
+        <%= f.number_field :height,class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :description, '自己紹介' %>
+        <%= f.text_area :description, size:"60x4", class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, 'Email' %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'パスワード確認' %>
+        <%= f.password_field :password_confirmation, class: 'form-control' %>
+      </div>
+
+
+
+      <%= f.submit '更新', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </div>
+</div>

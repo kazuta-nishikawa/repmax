@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-sm-4 text-light">
+        <h1><%= @user.name %></h1>
+    </div>
+    <div class="col-sm-8 text-light">
+                
+        <% if @user.birthday %>
+            <h2>Day of Birth:<%= @user.birthday %></h2>
+        <% end %>
+        
+        <% if @user.birthday %>
+            <h2>Age:<%= @age %></h2>
+        <% end %>
+        
+        <% if @user.height %>
+            <h2>Height: <%= @user.height %></h2>
+        <% end %>
+        
+            
+        <% if @user.description %>
+            <p class="word-break">Self Introduce: <%= @user.description %> </p>
+        <% end %>
+        
+        
+    </div>
+</div>
+
+<%= link_to "Add Record", new_record_path, class: 'btn btn-primary btn-sm' %>
+
+<%= render 'records/repmax', records: @records %> 
