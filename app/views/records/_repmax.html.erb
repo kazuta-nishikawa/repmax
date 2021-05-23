@@ -33,7 +33,12 @@
                 <% else %>
                   <td></td>
                 <% end %>
-              <td><%= link_to "Edit", edit_record_path(record.id), class: 'btn btn-success btn-sm' %>    <%= link_to "Delete", record, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %></td>
+                
+                <% if current_user == record.user %>
+                  <td><%= link_to "Edit", edit_record_path(record.id), class: 'btn btn-success btn-sm' %>     <%= link_to "Delete", record, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %></td>
+                <% else %>
+                <td></td>
+                <% end %>
             </tr>
           </tbody>
         </table>

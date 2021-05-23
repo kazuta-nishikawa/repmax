@@ -1,12 +1,16 @@
 module RecordsHelper
     
     def calc_repmax(weight,rep)
-        @repmax = sprintf("%.2f", weight * (1+ (rep/40.to_f) )).to_f
+        rep = rep.to_f
+        weight = weight.to_f
+        @repmax = sprintf("%.2f", weight * (1+ (rep/40) ))
         return @repmax
     end
     
     def calc_ratio(bodyweight)
-        ratio = sprintf("%.2f",(@repmax / bodyweight).to_f)
+        bodyweight = bodyweight.to_f
+        @repmax = @repmax.to_f
+        ratio = sprintf("%.2f",(@repmax / bodyweight) )
         return ratio
     end
 end

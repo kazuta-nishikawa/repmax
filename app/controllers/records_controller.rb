@@ -1,7 +1,7 @@
 class RecordsController < ApplicationController
   
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy,:edit,:update]
   
   def new
      @record = Record.new
@@ -16,7 +16,7 @@ class RecordsController < ApplicationController
       else
         @records = current_user.records.order(id: :desc).page(params[:page])
         flash.now[:danger] = '記録に失敗しました。'
-        render user_path(current_user.id)
+        render :new
       end
   end
 
