@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    require 'csv'
+  
   # ログインしなければ実行されずにログイン画面に遷移する処理
    before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
    
@@ -13,6 +15,19 @@ class UsersController < ApplicationController
     if @user.birthday
       @age = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
     end
+    
+    # csv用コード
+     # respond_to はリクエストに応じた処理を行うメソッドです。
+    # 通常時はhtmlをリクエストしているので、処理は記述していません。
+    # viewのlink_toでformatをcsvとして指定しているので、
+    # リンクを押すとsend_records_csv(@records)の処理を行います。
+    respond_to do |format|
+      format.html
+      format.csv do |csv|
+        send_records_csv(@records)
+      end
+    end
+    
   end
 
   def new
@@ -52,6 +67,27 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation,:birthday, :description,:height)
+  end
+  
+  def send_records_csv(records)
+    csv_data = CSV.generate do |csv|
+      column_names = %w(date bodyweight Workout weight rep repmax ratio)
+      csv << column_names
+      records.each do |record|
+        column_values = [
+          record.date,
+          record.bodyweight,
+          record.workout,
+          record.weight,
+          record.rep,
+          calc_repmax(record.weight, record.rep),
+          calc_ratio(record.bodyweight)
+          
+        ]
+        csv << column_values
+      end
+    end
+    send_data(csv_data, filename: "repmax.csv")
   end
   
 end

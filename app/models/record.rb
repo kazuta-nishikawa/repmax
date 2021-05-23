@@ -1,4 +1,6 @@
 class Record < ApplicationRecord
+
+  
   belongs_to :user
   
   validates :weight, presence: true
@@ -6,4 +8,7 @@ class Record < ApplicationRecord
   validates :date, presence: true
   validates :workout, presence: true
   
+  
+
+    
 end

@@ -25,6 +25,7 @@
     </div>
 </div>
 
-<%= link_to "Add Record", new_record_path, class: 'btn btn-primary btn-sm' %>
+<%= link_to "Add Record", new_record_path, class: 'btn btn-primary' %>
+<%= link_to "csvで出力する",user_path(format: :csv), class:"btn btn-primary" %>
 
 <%= render 'records/repmax', records: @records %> 
