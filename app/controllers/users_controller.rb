@@ -2,9 +2,8 @@ class UsersController < ApplicationController
     require 'csv'
   
   # ログインしなければ実行されずにログイン画面に遷移する処理
-   before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
-   
-  before_action :correct_user, only: [:edit,:update]
+    before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
+    before_action :correct_user, only: [:edit,:update]
      
   def index
      @users = User.order(id: :desc).page(params[:page]).per(25)
@@ -90,6 +89,13 @@ class UsersController < ApplicationController
       end
     end
     send_data(csv_data, filename: "repmax.csv")
+  end
+  
+  def correct_user
+      @user = User.find(params[:id])
+      unless current_user == @user
+        redirect_to user_path(current_user) 
+      end
   end
   
 end

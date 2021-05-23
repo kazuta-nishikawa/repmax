@@ -51,5 +51,11 @@ class RecordsController < ApplicationController
     params.require(:record).permit(:date,:bodyweight,:workout,:rep,:weight)
   end
   
-
+  def correct_user
+      @record = current_user.records.find_by(id: params[:id])
+      unless @record
+        redirect_to  user_path(current_user.id)
+      end
+  end
+  
 end

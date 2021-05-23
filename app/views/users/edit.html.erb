@@ -23,7 +23,7 @@
       <div class="form-group">
         <%= f.label :birthday, '生年月日' %>
         <div class="row col-12">
-          <%= f.date_select :birthday,{use_month_numbers: true,start_year: Date.today.year-100, end_year: Date.today.year}, {class: 'form-control col-3'} %>
+          <%= f.date_select :birthday,{use_month_numbers: true,start_year: Date.today.year-100, end_year: Date.today.year-1}, {class: 'form-control col-3'} %>
         </div>
       </div>
 
