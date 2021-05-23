@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   # ログインしなければ実行されずにログイン画面に遷移する処理
    before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
    
+  before_action :correct_user, only: [:edit,:update]
+     
   def index
      @users = User.order(id: :desc).page(params[:page]).per(25)
   end
