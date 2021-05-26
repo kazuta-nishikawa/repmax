@@ -13,4 +13,9 @@ module RecordsHelper
         ratio = sprintf("%.2f",(@repmax / bodyweight) )
         return ratio
     end
+    
+    def next_record
+        next_record = current_user.records.order('date desc').where("date <= ?", :date).first
+        return next_record
+    end
 end

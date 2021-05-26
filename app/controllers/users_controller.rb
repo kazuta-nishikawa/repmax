@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
     require 'csv'
-  
+    
   # ログインしなければ実行されずにログイン画面に遷移する処理
     before_action :require_user_logged_in, only: [:index, :show, :edit, :update]
     before_action :correct_user, only: [:edit,:update]
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @records = @user.records.order(id: :desc).page(params[:page])
+    @records = @user.records.order(date: :desc).page(params[:page])
     
     if @user.birthday
       @age = (Date.today.strftime("%Y%m%d").to_i - @user.birthday.strftime("%Y%m%d").to_i) / 10000
