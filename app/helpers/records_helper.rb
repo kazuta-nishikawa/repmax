@@ -7,15 +7,11 @@ module RecordsHelper
         return @repmax
     end
     
-    def calc_ratio(bodyweight)
-        bodyweight = bodyweight.to_f
+    def calc_ratio(body_weight)
+        body_weight = body_weight.to_f
         @repmax = @repmax.to_f
-        ratio = sprintf("%.2f",(@repmax / bodyweight) )
+        ratio = sprintf("%.2f",(@repmax / body_weight) )
         return ratio
     end
-    
-    def next_record
-        next_record = current_user.records.order('date desc').where("date <= ?", :date).first
-        return next_record
-    end
+
 end

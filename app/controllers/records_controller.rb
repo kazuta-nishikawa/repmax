@@ -48,7 +48,7 @@ class RecordsController < ApplicationController
   
   
   def record_params
-    params.require(:record).permit(:date,:bodyweight,:workout,:rep,:weight)
+    params.require(:record).permit(:date,:workout,:rep,:weight)
   end
   
   def correct_user

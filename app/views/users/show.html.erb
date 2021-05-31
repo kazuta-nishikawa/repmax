@@ -27,11 +27,12 @@
 <% if current_user == @user %>
     <div>
         <%= link_to "Add Record", new_record_path, class: 'btn btn-primary' %>
+        <%= link_to "Add Physical Data", new_physical_path, class: 'btn btn-primary' %>
+        <%= link_to "Show Physical Data", physical_path, class: 'btn btn-primary' %>
         <%= link_to "csvで出力する",user_path(format: :csv), class:"btn btn-primary" %>
     </div>
 <% end %>
 </div>
 
 
-
-<%= render 'records/repmax', records: @records %> 
+<%= render 'records/repmax', records: @records, physical_data: @physical_data %> 

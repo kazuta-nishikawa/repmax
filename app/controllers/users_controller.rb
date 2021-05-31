@@ -6,11 +6,12 @@ class UsersController < ApplicationController
     before_action :correct_user, only: [:edit,:update]
      
   def index
-     @users = User.order(id: :desc).page(params[:page]).per(25)
+     @users = User.order(id: :desc).page(params[:page])
   end
   
   def show
     @user = User.find(params[:id])
+    @physical_data = @user.physicals.order(date: :desc).page(params[:page])
     @records = @user.records.order(date: :desc).page(params[:page])
     
     if @user.birthday
@@ -72,17 +73,15 @@ class UsersController < ApplicationController
   
   def send_records_csv(records)
     csv_data = CSV.generate do |csv|
-      column_names = %w(date bodyweight Workout weight rep repmax ratio)
+      column_names = %w(date Workout weight rep repmax ratio)
       csv << column_names
       records.each do |record|
         column_values = [
           record.date,
-          record.bodyweight,
           record.workout,
           record.weight,
           record.rep,
           calc_repmax(record.weight, record.rep),
-          calc_ratio(record.bodyweight)
           
         ]
         csv << column_values

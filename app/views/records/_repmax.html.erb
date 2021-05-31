@@ -1,8 +1,23 @@
 <% if records.any? %>
   <% records.group_by(&:date).each do |date, values| %>
     <hr>
-    <div class="text-light text-left">
-        <h3><i class="fas fa-calendar-day"></i><%= date %></h3>
+    <div class ="row text-light">
+      <div class="text-light text-left col-6">
+          <h3><i class="fas fa-calendar-day"></i><%= date %></h3>
+      </div>
+      <% physical_data.each do |v| %>
+        <% if v.date == date %>
+        <% @body_weight = v.body_weight %>
+          <div class="col-3">
+            <p>Body weight: <%= @body_weight %> kg</p>
+          </div>
+          <% if v.body_fat_ratio %>
+          <div class="col-3">
+            <p>Body fat ratio: <%= v.body_fat_ratio %> %</p>
+          </div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
         <table class="table table-dark">
           <thead>
@@ -11,7 +26,6 @@
               <th scope="col">Lift</th>
               <th scope="col">Rep</th>
               <th scope="col">1RepMax</th>
-              <th scope="col">Bodyweight</th>
               <th scope="col">Ratio</th>
               <th scope="col"></th>
             </tr>
@@ -23,15 +37,15 @@
               <td><%= record.weight %></td>
               <td><%= record.rep %></td>
               <td><%= calc_repmax(record.weight, record.rep) %></td>
-              <td><%= record.bodyweight %></td>
-              <% if record.bodyweight %>
-                <td><%= calc_ratio(record.bodyweight) %></td>
-              <% else %>
-                <td></td>
+              <% if @body_weight %>
+                <td><%= calc_ratio(@body_weight) %></td>
               <% end %>
-              
+              <td></td>
               <% if current_user == record.user %>
-                <td><%= link_to "Edit", edit_record_path(record.id), class: 'btn btn-success btn-sm' %>     <%= link_to "Delete", record, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %></td>
+                <td>
+                  <%= link_to "Edit", edit_record_path(record.id), class: 'btn btn-success btn-sm' %>
+                  <%= link_to "Delete", record, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+                </td>
               <% else %>
                 <td></td>
               <% end %>

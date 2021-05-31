@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'toppages#index'
   post '/' ,to: 'toppages#index'
@@ -8,7 +10,8 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   
   get 'signup' ,to: 'users#new'
-  resources :users, only:[:show, :edit, :create, :update, :index]
+  resources :users, only:[ :index, :show, :create, :edit, :update]
   
   resources :records, only:[:edit, :update, :new, :create, :destroy]
+  resources :physicals, only:[:show,:edit, :update, :new, :create, :destroy]
 end
