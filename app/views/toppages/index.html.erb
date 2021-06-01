@@ -1,10 +1,8 @@
-<% if logged_in? %>
-  <%= current_user.name %>
-<% else %>
+
   <div class="center jumbotron">
     <div class="text-center">
       <h1 class="text-light">Welcome to the RepMax</h1>
-      <h2 class="text-light">最大筋力を計算し、記録、表にします。<br>また、ＣSVファイル出力も可能です。<br>日々のトレーニングにお役立てください。</h2>
+      <p class="text-light">最大筋力を計算し、記録、表にします。<br>また、ＣSVファイル出力も可能です。<br>日々のトレーニングにお役立てください。</p>
       <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
@@ -36,4 +34,3 @@
     </div>
     
   </div>
-<% end %>

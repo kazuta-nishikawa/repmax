@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do |csv|
-        send_records_csv(@records)
+        send_records_csv(@records,@physical_data)
       end
     end
     
@@ -68,9 +68,9 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation,:birthday, :description,:height)
   end
   
-  def send_records_csv(records)
+  def send_records_csv(records,physical_data)
     csv_data = CSV.generate do |csv|
-      column_names = %w(date Workout weight rep repmax ratio)
+      column_names = %w(date Workout weight rep repmax ratio body_weight body_fat_ratio)
       csv << column_names
       records.each do |record|
         column_values = [
@@ -79,8 +79,14 @@ class UsersController < ApplicationController
           record.weight,
           record.rep,
           calc_repmax(record.weight, record.rep),
-          
         ]
+          physical_data.each do |datum|
+            
+            column_values << calc_ratio(datum.body_weight)
+            column_values << datum.body_weight
+            column_values << datum.body_fat_ratio
+          end
+        
         csv << column_values
       end
     end
