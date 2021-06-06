@@ -73,6 +73,7 @@ class UsersController < ApplicationController
       column_names = %w(date Workout weight rep repmax ratio body_weight body_fat_ratio)
       csv << column_names
       records.each do |record|
+        @date = record.date
         column_values = [
           record.date,
           record.workout,
@@ -80,11 +81,14 @@ class UsersController < ApplicationController
           record.rep,
           calc_repmax(record.weight, record.rep),
         ]
-          physical_data.each do |datum|
-            
-            column_values << calc_ratio(datum.body_weight)
-            column_values << datum.body_weight
-            column_values << datum.body_fat_ratio
+          physical_data.group_by(&:date).each do |date,data|
+            if @date == date
+              data.each do | datum |
+                column_values << calc_ratio(datum.body_weight)
+                column_values << datum.body_weight
+                column_values << datum.body_fat_ratio
+              end
+            end
           end
         
         csv << column_values
