@@ -18,8 +18,7 @@ class PhysicalsController < ApplicationController
       flash[:success] = '記録しました。'
       redirect_to physical_path(current_user.id)
     else
-      @physical_data = current_user.physicals.build
-      flash.now[:danger] = '記録に失敗しました。身体データは1日につき１つです。変更する場合は編集してください。'
+      flash.now[:danger] = '記録に失敗しました。'
       render :new
     end
     
