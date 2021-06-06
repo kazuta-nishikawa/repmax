@@ -36,9 +36,9 @@ class PhysicalsController < ApplicationController
         flash[:success] = '記録を編集しました。'
         redirect_to physical_path(current_user.id)
       else
-        @physical_data = current_user.physicals.order(id: :desc).page(params[:page])
+        @physical_data = current_user.physicals.find(params[:id])
         flash.now[:danger] = '記録の編集に失敗しました。'
-        render physical_path(current_user.id)
+        render :edit
       end
   end
 
