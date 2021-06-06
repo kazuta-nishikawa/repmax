@@ -58,3 +58,6 @@ group :production do
 end
 
 gem 'pry-byebug', group: :development
+
+#バリデーションエラーの日本語化gem
+gem 'rails-i18n'
