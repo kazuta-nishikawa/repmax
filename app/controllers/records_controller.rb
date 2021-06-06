@@ -14,7 +14,6 @@ class RecordsController < ApplicationController
         flash[:success] = '記録しました。'
         redirect_to user_path(current_user.id)
       else
-        @records = current_user.records.order(id: :desc).page(params[:page])
         flash.now[:danger] = '記録に失敗しました。'
         render :new
       end

@@ -14,6 +14,7 @@ class PhysicalsController < ApplicationController
 
   def create
     @physical_data = current_user.physicals.build(physical_params)
+    
     if @physical_data.save
       flash[:success] = '記録しました。'
       redirect_to physical_path(current_user.id)
