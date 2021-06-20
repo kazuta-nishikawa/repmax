@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
@@ -6,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest
       t.date :birthday
       t.integer :height
-      t.string :selfintroduce #カラム名をdescriptionに変更済み
+      t.string :selfintroduce # カラム名をdescriptionに変更済み
 
       t.timestamps
     end

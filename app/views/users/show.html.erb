@@ -1,10 +1,9 @@
-
 <div class="row">
     <div class="col-sm-4 text-light">
         <h1><%= @user.name %></h1>
     </div>
     <div class="col-sm-8 text-light">
-                
+
         <% if @user.birthday %>
             <h2>Day of Birth:<%= @user.birthday %></h2>
         <% end %>
@@ -21,8 +20,7 @@
         <% if @user.description %>
             <p class="word-break"><%= @user.description %> </p>
         <% end %>
-        
-        
+
     </div>
 <% if current_user == @user %>
     <div>
@@ -33,6 +31,5 @@
     </div>
 <% end %>
 </div>
-
 
 <%= render 'records/repmax', records: @records, physical_data: @physical_data %> 

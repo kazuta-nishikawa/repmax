@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePhysicals < ActiveRecord::Migration[5.2]
   def change
     create_table :physicals do |t|
@@ -8,6 +10,6 @@ class CreatePhysicals < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-    add_index :physicals, [:user_id, :date], unique: true, name:"only_one_data_per_a_day"
+    add_index :physicals, %i[user_id date], unique: true, name: 'only_one_data_per_a_day'
   end
 end
